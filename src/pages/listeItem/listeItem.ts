@@ -7,16 +7,14 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
   templateUrl: 'list.html'
 })
 export class ListPage {
-  selectedMenu: any;
   selectedItem: any;
   icons: string[];
-  ListeMenu: FirebaseListObservable<any>;
+  ListeItems: FirebaseListObservable<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, db: AngularFireDatabase) {
     // If we navigated to this page, we will have an item available as a nav param
-    this.selectedMenu = navParams.get('menu');
     this.selectedItem = navParams.get('item2');
-    this.ListeMenu = db.list('/ListeMenu');
+    this.ListeItems = db.list('/ListeMenu');
   }
 
   addTodoMenu() {
@@ -39,7 +37,7 @@ export class ListPage {
         {
           text: 'Save',
           handler: data => {
-            this.ListeMenu.push({
+            this.ListeItems.push({
               title: data.title
             });
           }
@@ -80,7 +78,7 @@ export class ListPage {
   }
 
   removeTodo(itemId: string) {
-    this.ListeMenu.remove(itemId);
+    this.ListeItems.remove(itemId);
   }
 
   updateTodo(itemId, itemTitle) {
@@ -104,7 +102,7 @@ export class ListPage {
         {
           text: 'Save',
           handler: data => {
-            this.ListeMenu.update(itemId, {
+            this.ListeItems.update(itemId, {
               title: data.title
             });
           }

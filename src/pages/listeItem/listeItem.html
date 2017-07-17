@@ -1,11 +1,11 @@
 <ion-header>
   <ion-navbar color="primary">
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="item"></ion-icon>
     </button>
     <ion-title>List</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="addTodoMenu()">
+      <button ion-button icon-only (click)="addTodo()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -14,8 +14,8 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let menu of ListeMenu | async" (click)="testJBR(menu.$key, menu.title)">
-      {{menu.title}}
+    <ion-item *ngFor="let item of items | async" (click)="testJBR(item.$key, item.title)">
+      {{item.title}}
     </ion-item>
   </ion-list>
 </ion-content>
