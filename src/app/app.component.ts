@@ -11,7 +11,7 @@ import { ListPage } from '../pages/list/list';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class BlockNote {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any;

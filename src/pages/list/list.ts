@@ -11,18 +11,22 @@ export class ListPage {
   selectedItem: any;
   icons: string[];
   ListeMenu: FirebaseListObservable<any>;
-  MonSousMenu : FirebaseListObservable<any>;
+  MonSousMenu: FirebaseListObservable<any>;
   db: AngularFireDatabase;
+  isSousMenu : any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, db: AngularFireDatabase) {
     // If we navigated to this page, we will have an item available as a nav param
+    this.isSousMenu = false;
+    console.log("1 : "+this.isSousMenu);
     this.selectedMenu = navParams.get('menu');
     this.selectedItem = navParams.get('item2');
     this.ListeMenu = db.list('/ListeMenu');
-    this.db=db;
+    this.db = db;
   }
 
   addTodoMenu() {
+    console.log("2 : "+this.isSousMenu);
     let prompt = this.alertCtrl.create({
       title: 'Todo Name',
       message: "Enter a name for this new todo you're so keen on adding",
@@ -43,7 +47,8 @@ export class ListPage {
           text: 'Save',
           handler: data => {
             this.ListeMenu.push({
-              title: data.title
+              title: data.title,
+              isSousMenu: this.isSousMenu
             });
           }
         }
@@ -52,12 +57,39 @@ export class ListPage {
     prompt.present();
   }
 
-  testJBR(itemId, itemTitle) {
-    this.MonSousMenu = this.db.list('/ListeMenu/' + itemId + '/SousMenus');
+  testJBR(itemId, itemTitle, isSousMenu) {
+    console.log("3 : "+this.isSousMenu);
+    this.isSousMenu=true;
+    console.log("4 : "+this.isSousMenu);
+    if (isSousMenu) {
+      let actionSheet = this.actionSheetCtrl.create({
+        title: 'What do you want to do?',
+        buttons: [
+          {
+            text: 'Delete Todo',
+            role: 'destructive',
+            handler: () => {
+              this.removeTodo(itemId);
+            }
+          }, {
+            text: 'Update Todo',
+            handler: () => {
+              this.updateTodo(itemId, itemTitle);
+            }
+          }, {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              // console.log('Cancel clicked');
+            }
+          }
+        ]
+      });
+      actionSheet.present();
+    } else {
+      this.MonSousMenu = this.db.list('/ListeMenu/' + itemId + '/SousMenus');
+    }
     this.ListeMenu = this.MonSousMenu;
-    this.ListeMenu.push({
-      title: itemTitle
-    });
   }
 
   showOptions(itemId, itemTitle) {
