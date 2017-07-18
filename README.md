@@ -26,3 +26,8 @@ Substitute ios for android if not on a Mac.
 npm install
 npm install promise-polyfill --save-exact
 ```
+
+### Launch the app
+```bash
+ionic cordova run android
+```
