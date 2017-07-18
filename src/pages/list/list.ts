@@ -11,12 +11,15 @@ export class ListPage {
   selectedItem: any;
   icons: string[];
   ListeMenu: FirebaseListObservable<any>;
+  MonSousMenu : FirebaseListObservable<any>;
+  db: AngularFireDatabase;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, db: AngularFireDatabase) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedMenu = navParams.get('menu');
     this.selectedItem = navParams.get('item2');
     this.ListeMenu = db.list('/ListeMenu');
+    this.db=db;
   }
 
   addTodoMenu() {
@@ -50,6 +53,11 @@ export class ListPage {
   }
 
   testJBR(itemId, itemTitle) {
+    this.MonSousMenu = this.db.list('/ListeMenu/' + itemId + '/SousMenus');
+    this.ListeMenu = this.MonSousMenu;
+    this.ListeMenu.push({
+      title: itemTitle
+    });
   }
 
   showOptions(itemId, itemTitle) {
