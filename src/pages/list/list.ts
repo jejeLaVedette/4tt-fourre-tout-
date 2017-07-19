@@ -27,12 +27,12 @@ export class ListPage {
    */
   addTodoMenu() {
     let prompt = this.alertCtrl.create({
-      title: 'Todo Name',
-      message: "Enter a name for this new todo you're so keen on adding",
+      title: 'Tâche',
+      message: "Entrez un nom pour cette tâche : ",
       inputs: [
         {
           name: 'title',
-          placeholder: 'title'
+          placeholder: 'tâche'
         },
       ],
       buttons: [
@@ -66,21 +66,21 @@ export class ListPage {
    */
   showOptions(itemId, itemTitle, isSousMenu) {
     let actionSheet = this.actionSheetCtrl.create({
-      title: 'What do you want to do?',
+      title: 'Que voulez-vous faire ?',
       buttons: [
         {
-          text: 'Delete Todo',
+          text: 'Supprimer',
           role: 'destructive',
           handler: () => {
             this.removeTodo(itemId);
           }
         }, {
-          text: 'Update Todo',
+          text: 'Modifier',
           handler: () => {
             this.updateTodo(itemId, itemTitle);
           }
         }, {
-          text: 'Cancel',
+          text: 'Annuler',
           role: 'cancel',
           handler: () => {
             // console.log('Cancel clicked');
@@ -92,7 +92,6 @@ export class ListPage {
   }
 
   goToSubMenu(itemId, itemTitle, isSousMenu) {
-    this.isSousMenu = true;
     if (!isSousMenu) {
       this.MonSousMenu = this.db.list('/ListeMenu/' + itemId + '/SousMenus');
     }
