@@ -17,8 +17,8 @@ export class ListPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, db: AngularFireDatabase) {
     // If we navigated to this page, we will have an item available as a nav param
     // a chaque fois que l'on arrive sur cette page, on est sur le menu classique donc pas de sous menu
-    this.isSousMenu = false;
     this.ListeMenu = db.list('/ListeMenu');
+    this.isSousMenu = false;
     this.db = db;
   }
 
@@ -92,11 +92,13 @@ export class ListPage {
   }
 
   goToSubMenu(itemId, itemTitle, isSousMenu) {
+    this.isSousMenu=true;
     if (!isSousMenu) {
       this.MonSousMenu = this.db.list('/ListeMenu/' + itemId + '/SousMenus');
     }
     this.ListeMenu = this.MonSousMenu;
-    //this.ListeMenu.push({ListPage});
+
+    // this.navCtrl.push(ListPage);
   }
 
   /**
