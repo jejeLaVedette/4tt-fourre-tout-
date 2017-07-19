@@ -12,7 +12,7 @@ export class ListPage {
   //sous menu
   MonSousMenu: FirebaseListObservable<any>;
   db: AngularFireDatabase;
-  isSousMenu : any;
+  isSousMenu: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, db: AngularFireDatabase) {
     // If we navigated to this page, we will have an item available as a nav param
@@ -64,37 +64,40 @@ export class ListPage {
    * @param itemTitle : titre de l'item
    * @param isSousMenu : boolean qui définis si oui ou non c'est un sous menu
    */
-  goToSubMenu(itemId, itemTitle, isSousMenu) {
-    this.isSousMenu=true;
-    if (isSousMenu) {
-      let actionSheet = this.actionSheetCtrl.create({
-        title: 'What do you want to do?',
-        buttons: [
-          {
-            text: 'Delete Todo',
-            role: 'destructive',
-            handler: () => {
-              this.removeTodo(itemId);
-            }
-          }, {
-            text: 'Update Todo',
-            handler: () => {
-              this.updateTodo(itemId, itemTitle);
-            }
-          }, {
-            text: 'Cancel',
-            role: 'cancel',
-            handler: () => {
-              // console.log('Cancel clicked');
-            }
+  showOptions(itemId, itemTitle, isSousMenu) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'What do you want to do?',
+      buttons: [
+        {
+          text: 'Delete Todo',
+          role: 'destructive',
+          handler: () => {
+            this.removeTodo(itemId);
           }
-        ]
-      });
-      actionSheet.present();
-    } else {
+        }, {
+          text: 'Update Todo',
+          handler: () => {
+            this.updateTodo(itemId, itemTitle);
+          }
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            // console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  goToSubMenu(itemId, itemTitle, isSousMenu) {
+    this.isSousMenu = true;
+    if (!isSousMenu) {
       this.MonSousMenu = this.db.list('/ListeMenu/' + itemId + '/SousMenus');
     }
     this.ListeMenu = this.MonSousMenu;
+    //this.ListeMenu.push({ListPage});
   }
 
   /**

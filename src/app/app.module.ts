@@ -16,8 +16,12 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // AF2 Settings
 export const firebaseConfig = {
-
-//PUT YOUR OWN FIREBASE CONFIG
+    apiKey: "AIzaSyDlF9M4YVmuJG7cFmlouQqq0O5OlJUS584",
+    authDomain: "test-jbr-65eea.firebaseapp.com",
+    databaseURL: "https://test-jbr-65eea.firebaseio.com",
+    projectId: "test-jbr-65eea",
+    storageBucket: "test-jbr-65eea.appspot.com",
+    messagingSenderId: "754195625254"
 };
 
 @NgModule({
