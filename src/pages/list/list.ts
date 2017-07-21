@@ -48,7 +48,8 @@ export class ListPage {
             this.ListeMenu.push({
               title: data.title,
               //si true, alors sous menu, sinon menu principale
-              isSousMenu: this.isSousMenu
+              isSousMenu: this.isSousMenu,
+              checked : false
             });
           }
         }
@@ -92,13 +93,20 @@ export class ListPage {
   }
 
   goToSubMenu(itemId, itemTitle, isSousMenu) {
-    this.isSousMenu=true;
+    this.isSousMenu = true;
     if (!isSousMenu) {
       this.MonSousMenu = this.db.list('/ListeMenu/' + itemId + '/SousMenus');
     }
     this.ListeMenu = this.MonSousMenu;
 
     // this.navCtrl.push(ListPage);
+  }
+
+  checkboxChecked(itemId, isChecked) {
+    isChecked = !isChecked;
+    this.ListeMenu.update(itemId, {
+      checked: isChecked
+    });
   }
 
   /**

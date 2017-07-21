@@ -15,8 +15,9 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let menu of ListeMenu | async" (click)="goToSubMenu(menu.$key, menu.title, menu.isSousMenu)" (press)="showOptions(menu.$key, menu.title, menu.isSousMenu)">
+       <ion-checkbox *ngIf="menu.isSousMenu==true&&menu.checked==true" color="blue" checked="true" (click)="checkboxChecked(menu.$key, menu.checked)"></ion-checkbox> 
+       <ion-checkbox *ngIf="menu.isSousMenu==true&&menu.checked==false" color="blue" checked="menu.checked" (click)="checkboxChecked(menu.$key, menu.checked)"></ion-checkbox> 
       <ion-label>{{menu.title}}</ion-label>
-        <ion-checkbox *ngIf="menu.isSousMenu==true" color="blue" checked="false"></ion-checkbox>
     </ion-item>
   </ion-list>
 </ion-content>
