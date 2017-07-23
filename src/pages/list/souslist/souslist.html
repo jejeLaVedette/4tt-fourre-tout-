@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Liste</ion-title>
+    <ion-title>{{titre}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="addTodoMenu()">
         <ion-icon name="add"></ion-icon>
@@ -14,7 +14,9 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let menu of ListeMenu | async" (click)="goToSubMenu(menu.$key, menu.title, menu.isSousMenu)" (press)="showOptions(menu.$key, menu.title, menu.isSousMenu)">
+    <ion-item *ngFor="let menu of ListeMenu | async" (press)="showOptions(menu.$key, menu.title, menu.isSousMenu)">
+       <ion-checkbox *ngIf="menu.checked==true" color="blue" checked="true" (click)="checkboxChecked(menu.$key, menu.checked)"></ion-checkbox> 
+       <ion-checkbox *ngIf="menu.checked==false" checked="menu.checked" (click)="checkboxChecked(menu.$key, menu.checked)"></ion-checkbox> 
       <ion-label>{{menu.title}}</ion-label>
     </ion-item>
   </ion-list>

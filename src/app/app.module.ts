@@ -1,10 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { BlockNote } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { SousListPage } from '../pages/list/souslist/souslist';
+import { MapsPage } from '../pages/maps/maps';
 import { AuthProvider } from '../providers/auth/auth';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -28,7 +31,9 @@ export const firebaseConfig = {
   declarations: [
     BlockNote,
     HomePage,
-    ListPage
+    ListPage,
+    MapsPage,
+    SousListPage
   ],
   imports: [
     BrowserModule,
@@ -41,12 +46,15 @@ export const firebaseConfig = {
   entryComponents: [
     BlockNote,
     HomePage,
-    ListPage
+    ListPage,
+    MapsPage,
+    SousListPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    Geolocation,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider
   ]
 })

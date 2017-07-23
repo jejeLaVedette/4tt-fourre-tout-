@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { SousListPage } from './souslist/souslist';
 
 @Component({
   selector: 'page-list',
@@ -12,13 +13,11 @@ export class ListPage {
   //sous menu
   MonSousMenu: FirebaseListObservable<any>;
   db: AngularFireDatabase;
-  isSousMenu: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, db: AngularFireDatabase) {
     // If we navigated to this page, we will have an item available as a nav param
     // a chaque fois que l'on arrive sur cette page, on est sur le menu classique donc pas de sous menu
     this.ListeMenu = db.list('/ListeMenu');
-    this.isSousMenu = false;
     this.db = db;
   }
 
@@ -48,7 +47,7 @@ export class ListPage {
             this.ListeMenu.push({
               title: data.title,
               //si true, alors sous menu, sinon menu principale
-              isSousMenu: this.isSousMenu,
+              isSousMenu: false,
               checked : false
             });
           }
@@ -93,13 +92,10 @@ export class ListPage {
   }
 
   goToSubMenu(itemId, itemTitle, isSousMenu) {
-    this.isSousMenu = true;
-    if (!isSousMenu) {
-      this.MonSousMenu = this.db.list('/ListeMenu/' + itemId + '/SousMenus');
-    }
-    this.ListeMenu = this.MonSousMenu;
-
-    // this.navCtrl.push(ListPage);
+    this.navCtrl.push(SousListPage, {
+      menuTitre: itemTitle,
+      name:'/ListeMenu/' + itemId + '/SousMenus'
+    });
   }
 
   checkboxChecked(itemId, isChecked) {

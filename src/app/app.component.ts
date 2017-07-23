@@ -7,6 +7,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { MapsPage } from '../pages/maps/maps';
 
 @Component({
   templateUrl: 'app.html'
@@ -34,7 +35,8 @@ export class BlockNote {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Liste', component: ListPage },
+      { title: 'Maps', component: MapsPage }
     ];
 
   }
