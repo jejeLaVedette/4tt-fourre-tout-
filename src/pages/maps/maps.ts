@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+
 
 declare var google;
 
@@ -13,7 +14,7 @@ export class MapsPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public geolocation: Geolocation, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -38,9 +39,10 @@ export class MapsPage {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
-      position: this.map.getCenter()
+      position: this.map.getCenter(),
+      draggable: true
     });
-    let content = "<h4>Information!</h4>";
+    let content = "<h4>TEST CREATION MARKER</h4>";
     this.addInfoWindow(marker, content);
   }
 
@@ -49,7 +51,14 @@ export class MapsPage {
       content: content
     });
     google.maps.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
+      // infoWindow.open(this.map, marker);
+      let pageDetails = this.modalCtrl.create(MapsPage);
+      infoWindow.open(this.map, marker)
+        //  pageDetails.present();
+    });
+
+    google.maps.event.addListener(marker, 'dragend', () => {
+      alert(marker.getPosition())
     });
   }
 }

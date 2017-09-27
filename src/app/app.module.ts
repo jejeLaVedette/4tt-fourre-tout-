@@ -1,5 +1,4 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -20,12 +19,12 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // AF2 Settings
 export const firebaseConfig = {
-    apiKey: "AIzaSyDlF9M4YVmuJG7cFmlouQqq0O5OlJUS584",
-    authDomain: "test-jbr-65eea.firebaseapp.com",
-    databaseURL: "https://test-jbr-65eea.firebaseio.com",
-    projectId: "test-jbr-65eea",
-    storageBucket: "test-jbr-65eea.appspot.com",
-    messagingSenderId: "754195625254"
+  apiKey: "AIzaSyDlF9M4YVmuJG7cFmlouQqq0O5OlJUS584",
+  authDomain: "test-jbr-65eea.firebaseapp.com",
+  databaseURL: "https://test-jbr-65eea.firebaseio.com",
+  projectId: "test-jbr-65eea",
+  storageBucket: "test-jbr-65eea.appspot.com",
+  messagingSenderId: "754195625254"
 };
 
 @NgModule({
@@ -55,7 +54,7 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthProvider
   ]
 })
