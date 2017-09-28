@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 
 declare var google;
@@ -14,7 +15,10 @@ export class MapsPage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public geolocation: Geolocation, public modalCtrl: ModalController) {
+  listeMarker: FirebaseListObservable<any>;
+
+  constructor(public navCtrl: NavController, public geolocation: Geolocation, public modalCtrl: ModalController, db: AngularFireDatabase) {
+    this.listeMarker = db.list('/listeMarker');
   }
 
   ionViewDidLoad() {
@@ -44,6 +48,11 @@ export class MapsPage {
     });
     let content = "<h4>TEST CREATION MARKER</h4>";
     this.addInfoWindow(marker, content);
+    this.listeMarker.push({
+      title: content,
+      //si true, alors sous menu, sinon menu principale
+      position: marker.getPosition().toString() ,
+    });
   }
 
   addInfoWindow(marker, content) {
